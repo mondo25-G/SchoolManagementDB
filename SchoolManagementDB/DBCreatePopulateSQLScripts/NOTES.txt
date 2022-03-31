@@ -1,0 +1,39 @@
+﻿The Entity Relationship Diagram gives a first picture regarding Primary keys and foreign keys
+
+Here we will cover evertyhing else not covered by the ERD that summarizes the business logic
+
+UNIQUE KEYS:
+
+TABLE
+Subject         :    (Code)(Title)   
+TaughtModule    :    (Code)(Title)
+Lecturer		:    (SchoolEmail)
+Student			:    (SchoolEmail)
+Course			:    (TaughtModuleId,SubjectId)
+Seminar			:    (CourseId,Term)
+Enrollment		:	 (SeminarId,StudentId)
+
+I didn't want to make a Person Table and tried to keep DB from sprawling.
+
+CHECK CONSTRAINTS:
+Student			:    (DateOfBirth < Today) (Restrict further if you like)
+Student			:    SchoolEmail ends with @stud.bootcamp.org
+Lecturer		:    SchoolEmail ends with @fac.bootcamp.org
+Course			:    (Credits>0)
+Seminar			:    (Term =1 or Term=2) (1=>'Fall', 2=>'Spring')
+Enrollment		:	 (SeminarId,StudentId)
+
+TRIGGERS
+Course          :     After insert Code=[TaughtModule.Code].[Subject.Code]
+Seminar         :     After insert Title=[Seminar.Term(Fall or Spring)].[Course.Code]
+
+STORED PROCEDURES:
+For select statements.
+For insert statements.
+
+OTHER DETAILS:
+Student and Lecturers are assumed to be already registered school members with a unique school email.
+Ideally there should be a Person table.Lecturer,Student should have a PersonId and that would 
+solve everything but I kept the project small.
+The same Course can be taught both on Spring and Fall. This is a bootcamp.
+A Lecturer can teach many Seminars.
