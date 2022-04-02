@@ -27,7 +27,7 @@ namespace SchoolManagementDB.DataAccessLayer
         {
             //This is the only place where we instantiate a SchoolEntity.
             T schoolEntity = new T();
-            List<Tuple<PropertyInfo, string>> uniqCriteria = new List<Tuple<PropertyInfo, string>>(schoolEntity.GetType().GetProperties().Length);
+            List<Tuple<PropertyInfo, string>> uniqCriteria;
             //Here we check for duplicates in db.
             if (IsDuplicate(schoolEntity, out uniqCriteria))
             {
@@ -129,7 +129,7 @@ namespace SchoolManagementDB.DataAccessLayer
             uniquenessCriteria = DuplicateDataHelper.UniquenessCriteria(entity);
 
             string commandSb = DuplicateDataHelper.CheckForDuplicateQuery(entity, uniquenessCriteria);
-
+    
             using (IDbConnection connection = database.CreateOpenConnection())
             {
                 using (IDbCommand command = database.CreateCommand(commandSb, connection))
