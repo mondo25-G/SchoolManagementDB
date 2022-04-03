@@ -25,7 +25,7 @@ namespace SchoolManagementDB.DataAccessLayer
             List<Tuple<PropertyInfo, string>> uniqueProperties = new List<Tuple<PropertyInfo, string>>();
             if (schoolEntity is SchoolMember)
             {
-                //Each person has a UNIQUE social security number. 
+                //Each person has a UNIQUE School Email. 
                 uniqueProperties.Add(new Tuple<PropertyInfo,string>(schoolEntity.GetType().GetProperty("SchoolEmail"),"")); 
             }
             if (schoolEntity is Subject || schoolEntity is TaughtModule)
